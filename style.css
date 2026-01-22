@@ -1,303 +1,380 @@
-/* Reset default margin, padding, and box-sizing for all elements */
+/* Full CSS with robust sticky/fixed header */
+/* Save as style.css (or sticky-fix.css and include after your main stylesheet) */
+
+/* -------------------------
+   Reset & base
+   ------------------------- */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-/* CSS Variables */
 :root {
-    --card: #0b1220;
-    --muted: #9aa6b2;
-    --accent: #00d1b2;
+  --bg: #000000;
+  --card: #0b1220;
+  --muted: #9aa6b2;
+  --accent: #00d1b2;
+  --text: #ffffff;
+  --header-height: 150px; /* desktop default header height */
+  --header-height-mobile: 120px;
 }
 
-/* Apply styles to the entire body of the page */
-html {
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    scrollbar-color: #ffffff #1e1e1e;
+/* Ensure default scrolling container is the viewport (no overflow on ancestors) */
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* do not set overflow: auto/hidden on body/html that would break position: sticky */
 }
 
+/* Page layout */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Helvetica Neue", sans-serif;
-    background-color: #000000;
-    overflow-y: auto;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.4;
 }
 
-/* Styling for the sticky header bar */
+/* -------------------------
+   Header: fixed sticky implementation
+   ------------------------- */
 .sticky-bar {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: 150px;
-    background-color: #000000;
-    padding: 10px 0;
-    z-index: 999;
+  position: fixed; /* robust: stays visible while scrolling */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background-color: #000;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10px 4%;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px); /* subtle backdrop blur */
+  -webkit-backdrop-filter: blur(6px);
 }
 
-/* Styles for the navigation container within the sticky bar */
+/* If you prefer sticky behavior (only if header is inside a scrolling container),
+   change to position: sticky and ensure no ancestor has overflow/transform. */
+
+/* Navigation container inside header */
+.sticky-bar nav {
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* Layout for nav contents */
 .sticky-bar .nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-/* Styling for the company name within the sticky bar */
+/* Company name / brand */
 .sticky-bar .company-name {
-    font-size: 58px;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    text-transform: uppercase;
+  font-size: 36px;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
 }
 
-/* Styling for navigation links within the sticky bar */
-.sticky-bar .nav-container a {
-    text-decoration: none;
-    color: #fff;
-}
-
-/* Styles for the list of navigation links */
+/* Navigation links */
 .sticky-bar .nav-links {
-    list-style: none;
-    margin: 18px 0;
-    padding: 0;
-    font-size: 24px;
-    display: flex;
-    text-transform: uppercase;
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
-/* Styling for individual navigation link items */
 .sticky-bar .nav-links li {
-    margin-right: 20px;
+  margin: 0;
 }
 
-/* Remove margin for the last navigation link item */
-.sticky-bar .nav-links li:last-child {
-    margin-right: 0;
-}
-
-/* Styling for navigation links */
 .sticky-bar .nav-links a {
-    color: #fff;
-    text-decoration: none;
-    padding: 7px 9px;
-    position: relative;
-    font-size: 16px;
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 10px;
+  position: relative;
+  transition: color 180ms ease;
+  display: inline-block;
 }
 
 .sticky-bar .nav-links a:hover {
-    color: #ffffff;
+  color: var(--accent);
 }
 
-/* Underline effect for navigation links on hover */
+/* Underline hover effect */
 .sticky-bar .nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -3px;
-    height: 3px;
-    background-color: #ffffff;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.6s ease;
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  background-color: var(--text);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 260ms cubic-bezier(.2,.9,.3,1), opacity 200ms;
+  opacity: 0.9;
 }
 
 .sticky-bar .nav-links a:hover::after {
-    background-color: white;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    transform: scaleX(1);
+  transform: scaleX(1);
 }
 
-/* Footer styles */
-footer {
-    all: unset;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    font-weight: normal;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    width: 100%;
-    padding: 19px;
-    z-index: 1000;
-    box-sizing: border-box;
-    margin-top: auto;
-}
-
-footer p {
-    all: unset;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-/* Styling for the scrollbar */
-html::-webkit-scrollbar {
-    width: 12px;
-}
-
-html::-webkit-scrollbar-track {
-    background: #1e1e1e;
-}
-
-html::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 6px;
-    border: 3px solid #1e1e1e;
-}
-
-html::-webkit-scrollbar-thumb:hover {
-    background-color: #fcfcfc;
-}
-
-/* Media queries for responsive design */
-@media screen and (max-width: 768px) {
-    .sticky-bar .nav-links li {
-        margin-right: 10px;
-    }
-
-    .sticky-bar .nav-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .sticky-bar .nav-links {
-        flex-direction: row;
-        justify-content: center;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .sticky-bar .nav-links {
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .sticky-bar .nav-links li {
-        margin-right: 20px;
-    }
-}
-
-/* Main wrapper */
+/* -------------------------
+   Main content spacing to avoid being hidden by fixed header
+   ------------------------- */
 .wrap {
-    width: 100%;
-    flex: 1;
-    padding: 30px 8%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 8%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* top padding equals header height so content isn't covered */
+  padding-top: calc(var(--header-height) + 30px);
+  box-sizing: border-box;
 }
 
-/* Headings */
+/* If you have multiple pages where header height varies or small-screen header is smaller,
+   adjust via media queries below */
+
+/* -------------------------
+   Typography & common elements
+   ------------------------- */
 h1 {
-    font-size: clamp(22px, 6vw, 36px);
-    color: white;
-    margin-bottom: 10px;
-    font-weight: 700;
+  font-size: clamp(22px, 6vw, 36px);
+  color: var(--text);
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
 h2 {
-    font-size: clamp(18px, 5vw, 28px);
-    color: white;
+  font-size: clamp(18px, 4.5vw, 28px);
+  color: var(--text);
 }
 
 /* Lead paragraph */
 p.lead {
-    color: white;
-    font-size: clamp(14px, 3.6vw, 18px);
-    margin-bottom: 22px;
+  color: var(--text);
+  font-size: clamp(14px, 3.6vw, 18px);
+  margin-bottom: 22px;
 }
 
-/* Responsive value cards */
+/* -------------------------
+   Values / cards / grid
+   ------------------------- */
 .values {
-    display: flex;
-    flex-wrap: wrap;
-    color: white;
-    gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--text);
 }
 
 .value {
-    width: 100%;
-    padding: 9px;
-    border-radius: 9px;
-    background: rgb(27, 26, 26);
-    border: 16px solid rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(8px);
+  width: 100%;
+  padding: 16px;
+  border-radius: 9px;
+  background: rgba(27, 26, 26, 0.9);
+  border: 1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
 
 .value strong {
-    font-size: clamp(14px, 3.6vw, 18px);
-    display: block;
+  font-size: clamp(14px, 3.6vw, 18px);
+  display: block;
 }
 
 .value div {
-    color: var(--muted);
-    font-size: clamp(13px, 3.6vw, 16px);
-    margin-top: 6px;
+  color: var(--muted);
+  font-size: clamp(13px, 3.6vw, 16px);
+  margin-top: 6px;
 }
 
-/* Team Grid */
+/* Team grid */
 .team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
 }
 
 .teammember {
-    background: gray;
-    color: white;
-    padding: 18px;
-    border-radius: 12px;
-    border: 1px solid white(102, 47, 47, 0.05);
-    text-align: center;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+  background: gray;
+  color: white;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .teammember:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent);
+  transform: translateY(-3px);
+  border-color: var(--accent);
 }
 
 .teammember strong {
-    display: block;
-    font-size: 16px;
-    margin-top: 10px;
+  display: block;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 .teammember span {
-    font-size: 13px;
-    color: var(--muted);
+  font-size: 13px;
+  color: var(--muted);
 }
 
+/* Card utility */
 .card {
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
 }
 
-@media (max-width: 900px) {
-    .team-grid {
-        grid-template-columns: 1fr;
-    }
+/* -------------------------
+   Footer
+   ------------------------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 19px;
+  z-index: 10;
+  box-sizing: border-box;
+  margin-top: auto;
 }
 
-/* Desktop: 3 in a row */
-@media (min-width: 900px) {
-    .value {
-        width: calc(33.33% - 10px);
-    }
+/* -------------------------
+   Interactive / focus styles
+   ------------------------- */
+a:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
+
+/* -------------------------
+   Scrollbar styling (optional)
+   ------------------------- */
+html::-webkit-scrollbar {
+  width: 12px;
+}
+html::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+html::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 3px solid #1e1e1e;
+}
+html::-webkit-scrollbar-thumb:hover {
+  background-color: #fcfcfc;
+}
+
+/* -------------------------
+   Responsive: adjust header height & layout
+   ------------------------- */
+@media (max-width: 1024px) {
+  :root {
+    --header-height: 130px;
+  }
+  .sticky-bar .company-name {
+    font-size: 30px;
+  }
+  .sticky-bar .nav-links {
+    gap: 14px;
+    font-size: 15px;
+  }
+  .wrap {
+    padding-top: calc(var(--header-height) + 24px);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: var(--header-height-mobile);
+  }
+
+  .sticky-bar {
+    height: var(--header-height-mobile);
+    padding: 12px 6%;
+  }
+
+  .sticky-bar .nav-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sticky-bar .company-name {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .sticky-bar .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .wrap {
+    padding-top: calc(var(--header-height) + 20px);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky-bar .company-name {
+    font-size: 20px;
+  }
+  .sticky-bar .nav-links {
+    font-size: 13px;
+    gap: 10px;
+  }
+  .wrap {
+    padding-top: calc(var(--header-height) + 16px);
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+}
+
+/* -------------------------
+   Optional utility to restore sticky behavior if you prefer "position: sticky"
+   Comment out if using fixed header above
+   ------------------------- */
+/*
+.sticky-bar {
+  position: sticky;
+  top: 0;
+}
+*/
