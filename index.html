@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waystem</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <style>
+        * {
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        /* Sticky Header */
+        .sticky-bar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 150px;
+            background-color: #000;
+            padding: 10px 0;
+            z-index: 999;
+        }
+
+        .sticky-bar .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .sticky-bar .company-name {
+            font-size: 58px;
+            color: #fff;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .sticky-bar .nav-container a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .sticky-bar .nav-links {
+            list-style: none;
+            margin: 18px 0;
+            padding: 0;
+            font-size: 24px;
+            display: flex;
+            text-transform: uppercase;
+        }
+
+        .sticky-bar .nav-links li {
+            margin-right: 20px;
+        }
+
+        .sticky-bar .nav-links li:last-child {
+            margin-right: 0;
+        }
+
+        .sticky-bar .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 7px 9px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .sticky-bar .nav-links a:hover::after {
+            background-color: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            transform: scaleX(1);
+        }
+
+        .sticky-bar .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -3px;
+            height: 3px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.6s ease;
+        }
+
+        /* Particle Background */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        #three-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.6) 90%);
+            z-index: 1;
+        }
+
+        /* Universe Section */
+        .Universe {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: calc(100vh - 250px);
+            z-index: 1;
+            position: relative;
+        }
+
+        .Energy {
+            position: relative;
+            z-index: 2;
+            padding: 1rem;
+            animation: fadeIn 2s ease forwards;
+            opacity: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            color: #fff;
+            /* White text */
+        }
+
+        p {
+            font-size: 1.25rem;
+            color: #ccc;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Completely independent footer styles */
+        footer {
+            all: unset;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: 100%;
+            padding: 19px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        footer p {
+            all: unset;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* Scrollbar */
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #fff;
+            border-radius: 6px;
+            border: 3px solid #1e1e1e;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #fcfcfc;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .sticky-bar .nav-links li {
+                margin-right: 10px;
+            }
+
+            .sticky-bar .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sticky-bar .nav-links {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .sticky-bar .nav-links {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .sticky-bar .nav-links li {
+                margin-right: 20px;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <div class="background">
+        <canvas id="three-canvas"></canvas>
+        <div class="overlay"></div>
+    </div>
+
+    <header class="sticky-bar">
+        <nav>
+            <div class="nav-container">
+                <a href="index.html">
+                    <h2 class="company-name">Waystem</h2>
+                </a>
+                <ul class="nav-links">
+                    <li><a href='about.html'>About</a></li>
+                    <li><a href='solutions.html'>Solutions</a></li>
+                    <li><a href='contact.html'>Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="Universe">
+        <div class="Energy">
+            <h1>A Universe of Energy</h1>
+            <p>Where Research & Development Unlocks Possibilities.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Waystem</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('three-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 8;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Circle texture for particles
+        const circleTexture = new THREE.TextureLoader().load(
+            'data:image/svg+xml;base64,' + btoa(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+            <circle cx="32" cy="32" r="32" fill="white"/>
+        </svg>
+    `)
+        );
+
+        // Particles
+        const particleCount = 3000;
+        const positions = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount; i++) {
+            const i3 = i * 3;
+            positions[i3] = (Math.random() - 0.5) * 50;
+            positions[i3 + 1] = (Math.random() - 0.5) * 30;
+            positions[i3 + 2] = (Math.random() - 0.5) * 50;
+        }
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const material = new THREE.PointsMaterial({
+            map: circleTexture,
+            size: 0.06,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        // Animation loop — continuous rotation
+        const clock = new THREE.Clock();
+        function animate() {
+            const elapsed = clock.getElapsedTime();
+            points.rotation.y = elapsed * 0.05; // smooth continuous spin
+            points.rotation.x = Math.sin(elapsed * 0.2) * 0.05; // gentle vertical drift
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"version":"2024.11.0","token":"b85c003b5a974cb9b1fbc10f0c1a31f3","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
