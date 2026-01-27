@@ -311,3 +311,32 @@ p.lead {
 .card p.lead {
     margin-top: 8px; /* small gap above the lead paragraph inside .card */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+p.lead a {
+    color: white;          /* or use var(--muted) if you want softer */
+    text-decoration: none;
+    font-weight: 500;      /* optional: makes it readable without underline */
+}
+
+/* Optional: subtle hover effect (professional) */
+p.lead a:hover {
+    color: var(--accent);
+    text-decoration: none;
+
