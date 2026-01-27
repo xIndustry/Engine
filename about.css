@@ -289,6 +289,7 @@ p.lead {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
 }
 
+/* Responsive adjustments */
 @media (max-width: 900px) {
     .team-grid {
         grid-template-columns: 1fr;
@@ -302,3 +303,11 @@ p.lead {
     }
 }
 
+/* --- Added: small spacing tweaks for card sections (e.g., Career) --- */
+.card h2 {
+    margin-bottom: 12px; /* small gap under h2 inside any .card */
+}
+
+.card p.lead {
+    margin-top: 8px; /* small gap above the lead paragraph inside .card */
+}
