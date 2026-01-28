@@ -5,65 +5,261 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waystem</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link rel="stylesheet" href="solution.css">
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        :root {
+            --card: #0b1220;
+            --muted: #9aa6b2;
+            --accent: #00d1b2;
+        }
+
+        html {
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #fff #1e1e1e;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header & Navigation */
+        .sticky-bar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 130px;
+            background: #000;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .company-name {
+            font-size: 58px;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin-top: 18px;
+            display: flex;
+            text-transform: uppercase;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 7px 9px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -3px;
+            height: 3px;
+            background: #fff;
+            transform: scaleX(0);
+            transition: transform 0.6s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Layout Main */
+        .wrap {
+            flex: 1;
+            padding: 30px 8%;
+            width: 100%;
+        }
+
+        .card {
+            margin-top: 32px;
+        }
+
+        h1 {
+            font-size: clamp(22px, 6vw, 36px);
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: clamp(18px, 5vw, 28px);
+            margin-bottom: 12px;
+        }
+
+        p.lead {
+            font-size: clamp(14px, 3.6vw, 18px);
+            margin: 8px 0 22px;
+            line-height: 1.5;
+        }
+
+        p.lead a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        p.lead a:hover {
+            color: var(--accent);
+        }
+
+        /* Values & Team Sections */
+        .values {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .value {
+            width: 100%;
+            padding: 9px;
+            border-radius: 9px;
+            background: #1b1a1a;
+            border: 16px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        .value strong {
+            font-size: clamp(14px, 3.6vw, 18px);
+            display: block;
+        }
+
+        .value div {
+            color: var(--muted);
+            font-size: clamp(13px, 3.6vw, 16px);
+            margin-top: 6px;
+        }
+
+
+
+        /* Footer */
+        footer {
+            padding: 19px;
+            text-align: center;
+            background: #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        /* Scrollbar Styling */
+        html::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background: #fff;
+            border-radius: 6px;
+            border: 3px solid #1e1e1e;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-bar .nav-links li {
+                margin-right: 10px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .value {
+                width: calc(33.33% - 10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .company-name {
+                font-size: 40px;
+            }
+
+            .nav-links li {
+                margin: 0 5px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+
     <header class="sticky-bar">
-        <nav>
-            <div class="nav-container">
-                <a href="index.html">
-                    <h2 class="company-name">Waystem</h2>
-                </a>
-                <ul class="nav-links">
-                    <li><a href='index.html'>About</a></li>
-                    <li><a href="solutions.html">Solutions</a></li>
-                    <li><a href='contact.html'>Contact</a></li>
-                </ul>
-            </div>
+        <nav class="nav-container">
+            <a href="index.html" class="company-name">Waystem</a>
+            <ul class="nav-links">
+                <li><a href="about.html">About</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </nav>
     </header>
 
-    <div class="wrap">
-
-        <!-- About Section -->
+    <main class="wrap">
         <section id="about">
             <h1>Energy</h1>
-
             <p class="lead">
                 Integrated offerings that combine hardware, software, and services.
             </p>
-
             <div class="values">
-
                 <div class="value">
                     <strong>Distributed Generation</strong>
-                    <div>Create resilient, affordable energy systems that reduce carbon intensity, increase reliability,
-                        and
-                        deliver predictable returns for stakeholders.</div>
+                    <div>Create resilient, affordable energy systems that reduce carbon intensity.</div>
                 </div>
-
                 <div class="value">
                     <strong>Energy Storage</strong>
-                    <div>A world where clean, reliable energy is available to every community and every
-                        industry—efficiently and
-                        responsibly.</div>
+                    <div>A world where clean, reliable energy is available to every community.</div>
                 </div>
-
                 <div class="value">
                     <strong>Microgrids</strong>
                     <div>Science-led design, engineering-first execution, people-first outcomes.</div>
                 </div>
-
             </div>
         </section>
-    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
+
+    </main>
+
+    <footer>
         <p>&copy; 2026 Waystem</p>
     </footer>
 
