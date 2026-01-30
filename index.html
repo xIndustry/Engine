@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waystem</title>
+
     <style>
         /* Base Reset & Variables */
         * {
@@ -20,32 +21,30 @@
             --accent: #00d1b2;
         }
 
-        html {
-            overflow-y: scroll;
-            scrollbar-width: thin;
-            scrollbar-color: #fff #000000;
+        html,
+        body {
+            height: 100%;
+            overflow: hidden; /* ✅ HARD STOP SCROLL */
         }
 
         body {
             background-color: #000;
             color: #fff;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            
         }
 
         /* Header & Navigation */
         .sticky-bar {
             position: sticky;
             top: 0;
-            width: 100%;
             height: 130px;
             background: #000;
             z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .nav-container {
@@ -98,153 +97,49 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
-        /* Layout Main */
+        /* Main */
         .wrap {
-            flex: 1;
+            flex: 1;                 
+            position: relative;
+            overflow: hidden;        
             padding: 30px 8%;
-            width: 100%;
         }
-
-        .card {
-            margin-top: 32px;
-        }
-
-        h1 {
-            font-size: clamp(22px, 6vw, 36px);
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            font-size: clamp(18px, 5vw, 28px);
-            margin-bottom: 12px;
-        }
-
-        p.lead {
-            font-size: clamp(14px, 3.6vw, 18px);
-            margin: 8px 0 22px;
-            line-height: 1.5;
-        }
-
-        p.lead a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        p.lead a:hover {
-            color: var(--accent);
-        }
-
-        /* Values & Team Sections */
-        .values {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .value {
-            width: 100%;
-            padding: 9px;
-            border-radius: 9px;
-            background: #1b1a1a;
-            border: 16px solid rgba(0, 0, 0, 0.05);
-            backdrop-filter: blur(8px);
-        }
-
-        .value strong {
-            font-size: clamp(14px, 3.6vw, 18px);
-            display: block;
-        }
-
-        .value div {
-            color: var(--muted);
-            font-size: clamp(13px, 3.6vw, 16px);
-            margin-top: 6px;
-        }
-
-
 
         /* Footer */
         footer {
-            padding: 19px;
-            text-align: center;
+            height: 58px;
             background: #000;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: auto;
+            flex-shrink: 0;
         }
 
         footer p {
             font-size: 14px;
-        }
-
-        /* Scrollbar Styling */
-        html::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        html::-webkit-scrollbar-track {
-            background: #1e1e1e;
-        }
-
-        html::-webkit-scrollbar-thumb {
-            background: #fff;
-            border-radius: 6px;
-            border: 3px solid #1e1e1e;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 900px) {
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .sticky-bar .nav-links li {
-                margin-right: 10px;
-            }
-        }
-
-        @media (min-width: 900px) {
-            .value {
-                width: calc(33.33% - 10px);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .company-name {
-                font-size: 58px;
-            }
-
-            .nav-links li {
-                margin: 0 5px;
-            }
         }
     </style>
 </head>
 
 <body>
 
-    <header class="sticky-bar">
-        <nav class="nav-container">
-            <a href="index.html" class="company-name">Waystem</a>
-            <ul class="nav-links">
-                <li><a href="about.html">About</a></li>
-                <li><a href="solutions.html">Solutions</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<header class="sticky-bar">
+    <nav class="nav-container">
+        <a href="index.html" class="company-name">Waystem</a>
+        <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <main class="wrap">
+<main class="wrap">
 
-    <!-- Local styles scoped inside main -->
     <style>
-        .wrap {
-            position: relative;
-            overflow: hidden;
-            min-height: 100vh;
-        }
-
         #three-canvas {
             position: absolute;
             inset: 0;
@@ -259,15 +154,10 @@
         }
     </style>
 
-    <!-- Three.js canvas -->
     <canvas id="three-canvas"></canvas>
 
-    <!-- Optional content layer (keep empty or use later) -->
-    <div class="content-layer">
-        <!-- Your text / sections can live here -->
-    </div>
+    <div class="content-layer"></div>
 
-    <!-- Three.js (must be inside main as per your rule) -->
     <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 
     <script>
@@ -284,24 +174,23 @@
         camera.position.z = 8;
 
         const renderer = new THREE.WebGLRenderer({
-            canvas: canvas,
+            canvas,
             alpha: true,
             antialias: true
         });
 
-        function resizeRenderer() {
-            const width = canvas.clientWidth;
-            const height = canvas.clientHeight;
-            renderer.setSize(width, height, false);
-            camera.aspect = width / height;
+        function resize() {
+            const w = canvas.clientWidth;
+            const h = canvas.clientHeight;
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
             camera.updateProjectionMatrix();
         }
 
-        resizeRenderer();
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        resize();
 
-        // Circular particle texture
-        const circleTexture = new THREE.TextureLoader().load(
+        const texture = new THREE.TextureLoader().load(
             'data:image/svg+xml;base64,' + btoa(`
                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
                     <circle cx="32" cy="32" r="32" fill="white"/>
@@ -309,25 +198,21 @@
             `)
         );
 
-        // Particle system
-        const particleCount = 3000;
-        const positions = new Float32Array(particleCount * 3);
+        const count = 3000;
+        const positions = new Float32Array(count * 3);
 
-        for (let i = 0; i < particleCount; i++) {
+        for (let i = 0; i < count; i++) {
             const i3 = i * 3;
-            positions[i3]     = (Math.random() - 0.5) * 50;
+            positions[i3] = (Math.random() - 0.5) * 50;
             positions[i3 + 1] = (Math.random() - 0.5) * 30;
             positions[i3 + 2] = (Math.random() - 0.5) * 50;
         }
 
         const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute(
-            'position',
-            new THREE.BufferAttribute(positions, 3)
-        );
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
         const material = new THREE.PointsMaterial({
-            map: circleTexture,
+            map: texture,
             size: 0.06,
             transparent: true,
             opacity: 0.8,
@@ -348,21 +233,15 @@
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', resizeRenderer);
-
+        window.addEventListener('resize', resize);
         animate();
     </script>
 
 </main>
 
-    <footer>
-        <p>&copy; 2026 Waystem</p>
-    </footer>
+<footer>
+    <p>&copy; 2026 Waystem</p>
+</footer>
 
 </body>
-
 </html>
-
-
-
-
