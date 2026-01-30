@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waystem</title>
-
     <style>
+        /* Base Reset & Variables */
         * {
             margin: 0;
             padding: 0;
@@ -22,13 +23,22 @@
         html {
             overflow-y: scroll;
             scrollbar-width: thin;
-            scrollbar-color: #fff #000;
+            scrollbar-color: #fff #000000;
         }
 
-        /* ================= HEADER ================= */
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header & Navigation */
         .sticky-bar {
             position: sticky;
             top: 0;
+            width: 100%;
             height: 130px;
             background: #000;
             z-index: 999;
@@ -45,10 +55,10 @@
 
         .company-name {
             font-size: 58px;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-decoration: none;
             color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .nav-links {
@@ -66,8 +76,8 @@
             color: #fff;
             text-decoration: none;
             padding: 7px 9px;
-            font-size: 16px;
             position: relative;
+            font-size: 16px;
         }
 
         .nav-links a::after {
@@ -87,117 +97,131 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
-        /* ================= BACKGROUND ================= */
-        .background {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-        }
-
-        #three-canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.6) 90%);
-            z-index: 1;
-        }
-
-        /* ================= HERO ================= */
+        /* Layout Main */
         .wrap {
             flex: 1;
             padding: 30px 8%;
-        }
-
-        .Universe {
-            position: relative;
-            z-index: 1;
-            height: calc(100vh - 250px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .Energy {
-            padding: 1rem;
-            animation: fadeIn 2s ease forwards;
-            opacity: 0;
-        }
-
-        /* DESKTOP TEXT — UNCHANGED */
-        .Universe h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.2;
-        }
-
-        .Universe p {
-            margin-top: 1rem;
-            font-size: 1.25rem;
-            color: #ccc;
-            max-width: 600px;
-        }
-
-        /* ================= MOBILE — ONLY ENERGY & UNIVERSE ================= */
-        @media (max-width: 768px) {
-            .Universe h1 {
-                font-size: 2.1rem;
-                line-height: 1.25;
-                letter-spacing: -0.02em;
-            }
-
-            .Universe p {
-                font-size: 1.05rem;
-                line-height: 1.6;
-                color: #bfbfbf;
-                max-width: 520px;
-                margin-top: 0.9rem;
-            }
-        }
-
-        /* ================= FOOTER ================= */
-        footer {
-            all: unset;
-            position: fixed;
-            bottom: 0;
             width: 100%;
-            padding: 19px;
-            background: #000;
+        }
+
+        .card {
+            margin-top: 32px;
+        }
+
+        h1 {
+            font-size: clamp(22px, 6vw, 36px);
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: clamp(18px, 5vw, 28px);
+            margin-bottom: 12px;
+        }
+
+        p.lead {
+            font-size: clamp(14px, 3.6vw, 18px);
+            margin: 8px 0 22px;
+            line-height: 1.5;
+        }
+
+        p.lead a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        p.lead a:hover {
+            color: var(--accent);
+        }
+
+        /* Values & Team Sections */
+        .values {
             display: flex;
-            justify-content: center;
-            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .value {
+            width: 100%;
+            padding: 9px;
+            border-radius: 9px;
+            background: #1b1a1a;
+            border: 16px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        .value strong {
+            font-size: clamp(14px, 3.6vw, 18px);
+            display: block;
+        }
+
+        .value div {
+            color: var(--muted);
+            font-size: clamp(13px, 3.6vw, 16px);
+            margin-top: 6px;
+        }
+
+
+
+        /* Footer */
+        footer {
+            padding: 19px;
+            text-align: center;
+            background: #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
         }
 
         footer p {
-            all: unset;
             font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #fff;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
+        /* Scrollbar Styling */
+        html::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background: #fff;
+            border-radius: 6px;
+            border: 3px solid #1e1e1e;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-bar .nav-links li {
+                margin-right: 10px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .value {
+                width: calc(33.33% - 10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .company-name {
+                font-size: 58px;
+            }
+
+            .nav-links li {
+                margin: 0 5px;
             }
         }
     </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
 <body>
-
-    <div class="background">
-        <canvas id="three-canvas"></canvas>
-        <div class="overlay"></div>
-    </div>
 
     <header class="sticky-bar">
         <nav class="nav-container">
@@ -211,78 +235,14 @@
     </header>
 
     <main class="wrap">
-        <section class="Universe">
-            <div class="Energy">
-                <h1>A Universe of Energy</h1>
-                <p>Where Research & Development Unlocks Possibilities.</p>
-            </div>
-        </section>
+        
+
+
     </main>
 
     <footer>
         <p>&copy; 2026 Waystem</p>
     </footer>
-
-    <script>
-        const canvas = document.getElementById("three-canvas");
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
-        camera.position.z = 8;
-
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-        renderer.setSize(innerWidth, innerHeight);
-        renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-
-        const texture = new THREE.TextureLoader().load(
-            "data:image/svg+xml;base64," + btoa(
-                `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
-            <circle cx="32" cy="32" r="32" fill="white"/>
-        </svg>`
-            )
-        );
-
-        const count = 3000;
-        const positions = new Float32Array(count * 3);
-
-        for (let i = 0; i < count; i++) {
-            const i3 = i * 3;
-            positions[i3] = (Math.random() - 0.5) * 50;
-            positions[i3 + 1] = (Math.random() - 0.5) * 30;
-            positions[i3 + 2] = (Math.random() - 0.5) * 50;
-        }
-
-        const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-        const material = new THREE.PointsMaterial({
-            map: texture,
-            size: 0.06,
-            transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
-        });
-
-        const points = new THREE.Points(geometry, material);
-        scene.add(points);
-
-        const clock = new THREE.Clock();
-        function animate() {
-            const t = clock.getElapsedTime();
-            points.rotation.y = t * 0.05;
-            points.rotation.x = Math.sin(t * 0.2) * 0.05;
-            renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        }
-
-        addEventListener("resize", () => {
-            camera.aspect = innerWidth / innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(innerWidth, innerHeight);
-        });
-
-        animate();
-    </script>
 
 </body>
 
