@@ -5,94 +5,252 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waystem</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link rel="stylesheet" href="contact.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,800;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        :root {
+            --card: #0b1220;
+            --muted: #9aa6b2;
+            --accent: #00d1b2;
+        }
+
+        html {
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #fff #000000;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header & Navigation */
+        .sticky-bar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 130px;
+            background: #000;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .company-name {
+            font-size: 58px;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin-top: 18px;
+            display: flex;
+            text-transform: uppercase;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 7px 9px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -3px;
+            height: 3px;
+            background: #fff;
+            transform: scaleX(0);
+            transition: transform 0.6s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Layout Main */
+        .wrap {
+            flex: 1;
+            padding: 30px 8%;
+            width: 100%;
+        }
+
+        .card {
+            margin-top: 32px;
+        }
+
+        h1 {
+            font-size: clamp(22px, 6vw, 36px);
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: clamp(18px, 5vw, 28px);
+            margin-bottom: 12px;
+        }
+
+        p.lead {
+            font-size: clamp(14px, 3.6vw, 18px);
+            margin: 8px 0 22px;
+            line-height: 1.5;
+        }
+
+        p.lead a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        p.lead a:hover {
+            color: var(--accent);
+        }
+
+        /* Values & Team Sections */
+        .values {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .value {
+            width: 100%;
+            padding: 9px;
+            border-radius: 9px;
+            background: #1b1a1a;
+            border: 16px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        .value strong {
+            font-size: clamp(14px, 3.6vw, 18px);
+            display: block;
+        }
+
+        .value div {
+            color: var(--muted);
+            font-size: clamp(13px, 3.6vw, 16px);
+            margin-top: 6px;
+        }
+
+
+
+        /* Footer */
+        footer {
+            padding: 19px;
+            text-align: center;
+            background: #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        /* Scrollbar Styling */
+        html::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background: #fff;
+            border-radius: 6px;
+            border: 3px solid #1e1e1e;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-bar .nav-links li {
+                margin-right: 10px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .value {
+                width: calc(33.33% - 10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .company-name {
+                font-size: 58px;
+            }
+
+            .nav-links li {
+                margin: 0 5px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+
     <header class="sticky-bar">
-        <nav>
-            <div class="nav-container">
-                <a href="index.html">
-                    <h2 class="company-name">Waystem</h2>
-                </a>
-                <ul class="nav-links">
-                    <li><a href='about.html'>About</a></li>
-                    <li><a href='solutions.html'>Solutions</a></li>
-                    <li><a href='contact.html'>Contact</a></li>
-                </ul>
-            </div>
+        <nav class="nav-container">
+            <a href="index.html" class="company-name">Waystem</a>
+            <ul class="nav-links">
+                <li><a href="about.html">About</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </nav>
     </header>
-    <script defer
-        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
-        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-        data-cf-beacon='{"version":"2024.11.0","token":"b85c003b5a974cb9b1fbc10f0c1a31f3","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
-        crossorigin="anonymous"></script>
-</body>
-<div class="container">
-    <main class="row">
-        <section class="left">
-            <h1 class="start">Contact</h1>
-            <h2>Let's Get in Touch.</h2>
-            <form class='messageForm' method='post'><input type='hidden' name='form-name' value='form 1' />
-                <div class="inputGroup halfWidth">
-                    <input type="text" name="name" required="required">
-                    <label>Your Name</label>
-                </div>
-                <div class="inputGroup halfWidth">
-                    <input type="email" name="email" required="required">
-                    <label>Email</label>
-                </div>
-                <div class="inputGroup fullWidth">
-                    <input type="text" name="subject" required="required">
-                    <label>Subject</label>
-                </div>
-                <div class="inputGroup fullWidth">
-                    <textarea name="message" required="required"></textarea>
-                    <label>Your Message</label>
-                </div>
-                <div class="inputGroup fullWidth">
-                    <button type="submit">Send Message</button>
-                </div>
-            </form>
+
+    <main class="wrap">
+        <section id="about">
+            <h1>Get in touch</h1>
+            <p class="lead">
+                We’re here to help you design, build, and operate energy systems that deliver real value. Reach out to
+                our team for inquiries, project discussions, or technical questions.
+            </p>
+
         </section>
-        <div class="spacer"></div>
-        <section class="right">
-            <div class="contactTitle">
-                <h2>Contact Information</h2>
-                <p>We're open for any suggestion or just to have a chat</p>
-            </div>
-            <ul class="icon">
-                <li><i class="fas fa-map-marker-alt"></i> <strong>Waystem HQ , Tiswadi Panaji - 403001 Goa India</li>
-                </strong> <br><br>
-                <li><i class="fa-solid fa-phone"></i> <strong>+91 xxxxxxxxxx</li></strong> <br><br>
-                <li><i class="fa-solid fa-envelope"></i> <strong><a href="/cdn-cgi/l/email-protection"
-                            class="__cf_email__"
-                            data-cfemail="2f584e565c5b4a426f5f5d405b4041424e4643014c4042">[email&#160;protected]</a>
-                </li></strong>
-            </ul>
-        </section>
+
+
     </main>
-</div>
-<div class="social-wrapper social-title">
-    <a class="social-item facebook" href="https://facebook.com/Waystem" target="_blank"></a>
-    <a class="social-item instagram" href="https://instagram.com/waystem" target="_blank"></a>
-    <a class="social-item x" href="https://x.com/waystem" target="_blank"></a>
-    <a class="social-item youtube" href="https://youtube.com/Waystem" target="_blank"></a>
-    <a class="social-item linkedin" href="https://linkedin.com/company/waystem" target="_blank"></a>
-</div>
-</div>
-<footer class="footer">
-    <p>&copy; 2026 Waystem</p>
-</footer>
+
+    <footer>
+        <p>&copy; 2026 Waystem</p>
+    </footer>
+
 </body>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 
 </html>
