@@ -93,7 +93,7 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
-        /* Layout Main - SAME AS OTHER PAGES */
+        /* Layout Main */
         .wrap {
             flex: 1;
             padding: 30px 8%;
@@ -102,40 +102,60 @@
 
         .card { margin-top: 32px; }
 
-        .wrap h1 { 
-            font-size: clamp(22px, 6vw, 36px); 
-            margin-bottom: 10px; 
-        }
-        
-        .wrap h2 { 
-            font-size: clamp(18px, 5vw, 28px); 
-            margin-bottom: 12px; 
-        }
+        h1 { font-size: clamp(22px, 6vw, 36px); margin-bottom: 10px; }
+        h2 { font-size: clamp(18px, 5vw, 28px); margin-bottom: 12px; }
 
-        .wrap p.lead { 
+        p.lead { 
             font-size: clamp(14px, 3.6vw, 18px); 
             margin: 8px 0 22px; 
             line-height: 1.5;
         }
 
-        .wrap p.lead a { 
-            color: #fff; 
-            text-decoration: none; 
-            font-weight: 500; 
-        }
-        
-        .wrap p.lead a:hover { 
-            color: var(--accent); 
+        p.lead a { color: #fff; text-decoration: none; font-weight: 500; }
+        p.lead a:hover { color: var(--accent); }
+
+        /* Values & Team Sections */
+        .values { display: flex; flex-wrap: wrap; gap: 14px; }
+
+        .value {
+            width: 100%;
+            padding: 9px;
+            border-radius: 9px;
+            background: #1b1a1a;
+            border: 16px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
         }
 
-        /* Form Styling - INSIDE WRAP */
+        .value strong { font-size: clamp(14px, 3.6vw, 18px); display: block; }
+        .value div { color: var(--muted); font-size: clamp(13px, 3.6vw, 16px); margin-top: 6px; }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .teammember {
+            background: rgb(24, 24, 24);
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .teammember:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .teammember strong { display: block; margin-top: 10px; font-size: 16px; }
+        .teammember span { font-size: 13px; color: var(--muted); }
+
+        /* CONTACT FORM STYLES - INSIDE WRAP */
         .wrap .messageForm {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             padding-top: 30px;
             gap: 0;
-            max-width: 800px;
         }
 
         .wrap .inputGroup {
@@ -235,20 +255,14 @@
             transform: translateY(-2px);
         }
 
-        /* Contact Info Section - INSIDE WRAP */
-        .wrap .contact-info-section {
-            margin-top: 50px;
-        }
-
-        .wrap .contact-info-section h2 {
-            font-size: clamp(18px, 5vw, 28px);
-            margin-bottom: 10px;
+        /* CONTACT INFO STYLES - INSIDE WRAP */
+        .wrap .contact-info-header h2 {
             position: relative;
             display: inline-block;
             padding-bottom: 10px;
         }
 
-        .wrap .contact-info-section h2::after {
+        .wrap .contact-info-header h2::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -258,17 +272,11 @@
             background-color: #a6522a;
         }
 
-        .wrap .contact-info-section p.lead {
-            font-size: clamp(14px, 3.6vw, 18px);
-            color: var(--muted);
-            margin-top: 15px;
-            margin-bottom: 25px;
-        }
-
         .wrap .contact-details {
             list-style: none;
             padding: 0;
             margin: 0;
+            margin-top: 20px;
         }
 
         .wrap .contact-details li {
@@ -296,7 +304,6 @@
             flex: 1;
         }
 
-        /* Social Icons - INSIDE WRAP */
         .wrap .social-section {
             margin-top: 40px;
             text-align: center;
@@ -375,39 +382,24 @@
         }
 
         /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .sticky-bar .nav-links li { margin-right: 10px; }
+        }
+
+        @media (min-width: 900px) {
+            .value { width: calc(33.33% - 10px); }
+        }
+
         @media (max-width: 1100px) {
             .wrap .messageForm .halfWidth {
                 flex-basis: 100%;
             }
         }
 
-        @media (max-width: 900px) {
-            .sticky-bar .nav-links li {
-                margin: 0 8px;
-            }
-        }
-
         @media (max-width: 480px) {
-            .company-name {
-                font-size: 58px;
-            }
-
-            .nav-links li {
-                margin: 0 5px;
-            }
-
-            .wrap {
-                padding: 20px 5%;
-            }
-
-            .wrap .social-icons a {
-                width: 45px;
-                height: 45px;
-            }
-
-            .wrap .social-icons a i {
-                font-size: 20px;
-            }
+            .company-name { font-size: 58px; }
+            .nav-links li { margin: 0 5px; }
         }
     </style>
 </head>
@@ -427,8 +419,9 @@
     <main class="wrap">
         <section id="contact">
             <h1>Contact</h1>
-            <p class="lead">Let's Get in Touch.</p>
-            
+            <p class="lead">
+                Let's Get in Touch.
+            </p>
             <form class='messageForm' method='post'>
                 <input type='hidden' name='form-name' value='form 1' />
                 <div class="inputGroup halfWidth">
@@ -453,9 +446,11 @@
             </form>
         </section>
 
-        <section class="contact-info-section card">
-            <h2>Contact Information</h2>
-            <p class="lead">We're open for any suggestion or just to have a chat</p>
+        <section id="contact-info" class="card">
+            <div class="contact-info-header">
+                <h2>Contact Information</h2>
+                <p class="lead">We're open for any suggestion or just to have a chat</p>
+            </div>
 
             <ul class="contact-details">
                 <li>
