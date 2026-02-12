@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Base Reset & Variables */
         * {
@@ -97,34 +98,22 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
-        /* Layout Main */
+        /* Layout Main - WRAP SECTION */
         .wrap {
             flex: 1;
             padding: 30px 8%;
             width: 100%;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            justify-content: space-between;
             min-height: calc(100vh - 130px);
         }
 
-        .wrap .content-container {
-            display: flex;
-            justify-content: space-between;
+        .wrap .top-content {
+            flex: 0 0 auto;
             width: 100%;
             max-width: 1400px;
-            gap: 60px;
-        }
-
-        .wrap .left-section {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .wrap .right-section {
-            flex-basis: 35%;
-            min-width: 320px;
-            max-width: 450px;
+            margin: 0 auto;
         }
 
         .wrap h1 {
@@ -141,61 +130,6 @@
             font-weight: 400;
         }
 
-        .wrap .right-section h2 {
-            font-size: 20px;
-            margin-top: 45px;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .wrap .right-section h2::before {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 1px;
-            background-color: #8f8a8a;
-            top: 120%;
-            left: 0;
-        }
-
-        .wrap .right-section h2::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            background-color: #a6522a;
-            top: calc(120% - 1px);
-            left: 0;
-        }
-
-        .wrap .right-section p {
-            font-size: 17px;
-            color: #ffffff;
-            letter-spacing: 1px;
-            line-height: 1.4;
-            margin-bottom: 30px;
-        }
-
-        .wrap .contact-info {
-            list-style: none;
-            padding: 0;
-        }
-
-        .wrap .contact-info li {
-            position: relative;
-            padding: 0 0 20px 0;
-            font-size: 16px;
-            color: #fff;
-            line-height: 1.6;
-        }
-
-        .wrap .contact-info li strong {
-            display: block;
-            color: #fbfbfb;
-            font-size: 16px;
-        }
-
         /* Form Styling - ONLY INSIDE WRAP */
         .wrap .messageForm {
             display: flex;
@@ -203,6 +137,7 @@
             flex-wrap: wrap;
             padding-top: 30px;
             gap: 0;
+            max-width: 800px;
         }
 
         .wrap .inputGroup {
@@ -302,6 +237,131 @@
             transform: translateY(-2px);
         }
 
+        /* Bottom Contact Section - INSIDE WRAP */
+        .wrap .bottom-contact {
+            flex: 0 0 auto;
+            width: 100%;
+            margin-top: 80px;
+            padding-top: 0;
+        }
+
+        .wrap .contact-header {
+            margin-bottom: 30px;
+        }
+
+        .wrap .contact-header h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .wrap .contact-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background-color: #a6522a;
+        }
+
+        .wrap .contact-header p {
+            font-size: 16px;
+            color: #9aa6b2;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        .wrap .contact-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrap .contact-details li {
+            margin-bottom: 30px;
+            font-size: 17px;
+            color: #fff;
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .wrap .contact-details li:last-child {
+            margin-bottom: 0;
+        }
+
+        .wrap .contact-details li i {
+            font-size: 22px;
+            color: #fff;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .wrap .contact-details li .contact-text {
+            flex: 1;
+        }
+
+        .wrap .social-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .wrap .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .wrap .social-icons a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .wrap .social-icons a i {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .wrap .social-icons a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .wrap .social-icons a.facebook:hover {
+            background-color: #1877f2;
+        }
+
+        .wrap .social-icons a.instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .wrap .social-icons a.twitter:hover {
+            background-color: #000000;
+        }
+
+        .wrap .social-icons a.youtube:hover {
+            background-color: #ff0000;
+        }
+
+        .wrap .social-icons a.linkedin:hover {
+            background-color: #0077b5;
+        }
+
         /* Footer */
         footer {
             padding: 19px;
@@ -336,29 +396,17 @@
             .wrap .messageForm .halfWidth {
                 flex-basis: 100%;
             }
-            
-            .wrap .content-container {
-                gap: 40px;
-            }
         }
 
         @media (max-width: 900px) {
-            .wrap .content-container {
-                flex-direction: column;
-            }
-
-            .wrap .left-section,
-            .wrap .right-section {
-                flex-basis: 100%;
-                max-width: 100%;
-            }
-
-            .wrap .right-section {
-                margin-top: 40px;
-            }
-
             .sticky-bar .nav-links li {
                 margin: 0 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wrap .social-icons {
+                flex-wrap: wrap;
             }
         }
 
@@ -378,6 +426,19 @@
             .wrap {
                 padding: 20px 5%;
             }
+
+            .wrap .bottom-contact {
+                margin-top: 50px;
+            }
+
+            .wrap .social-icons a {
+                width: 45px;
+                height: 45px;
+            }
+
+            .wrap .social-icons a i {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
@@ -396,53 +457,79 @@
     </header>
 
     <main class="wrap">
-        <div class="content-container">
-            <section class="left-section">
-                <h1>Contact</h1>
-                <h2>Let's Get in Touch.</h2>
-                <form class='messageForm' method='post'>
-                    <input type='hidden' name='form-name' value='form 1' />
-                    <div class="inputGroup halfWidth">
-                        <input type="text" name="name" required="required">
-                        <label>Your Name</label>
-                    </div>
-                    <div class="inputGroup halfWidth">
-                        <input type="email" name="email" required="required">
-                        <label>Email</label>
-                    </div>
-                    <div class="inputGroup fullWidth">
-                        <input type="text" name="subject" required="required">
-                        <label>Subject</label>
-                    </div>
-                    <div class="inputGroup fullWidth">
-                        <textarea name="message" required="required"></textarea>
-                        <label>Your Message</label>
-                    </div>
-                    <div class="inputGroup fullWidth">
-                        <button type="submit">Send Message</button>
-                    </div>
-                </form>
-            </section>
+        <div class="top-content">
+            <h1>Contact</h1>
+            <h2>Let's Get in Touch.</h2>
+            <form class='messageForm' method='post'>
+                <input type='hidden' name='form-name' value='form 1' />
+                <div class="inputGroup halfWidth">
+                    <input type="text" name="name" required="required">
+                    <label>Your Name</label>
+                </div>
+                <div class="inputGroup halfWidth">
+                    <input type="email" name="email" required="required">
+                    <label>Email</label>
+                </div>
+                <div class="inputGroup fullWidth">
+                    <input type="text" name="subject" required="required">
+                    <label>Subject</label>
+                </div>
+                <div class="inputGroup fullWidth">
+                    <textarea name="message" required="required"></textarea>
+                    <label>Your Message</label>
+                </div>
+                <div class="inputGroup fullWidth">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+        </div>
 
-            <section class="right-section">
+        <div class="bottom-contact">
+            <div class="contact-header">
                 <h2>Contact Information</h2>
                 <p>We're open for any suggestion or just to have a chat</p>
-                <ul class="contact-info">
-                    <li>
-                        <strong>Address</strong>
-                        Waystem HQ, Tiswadi Panaji - 403001<br>
-                        Goa, India
-                    </li>
-                    <li>
-                        <strong>Phone</strong>
+            </div>
+
+            <ul class="contact-details">
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="contact-text">
+                        Waystem HQ, Tiswadi Panaji - 403001 Goa India
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <div class="contact-text">
                         +91 xxxxxxxxxx
-                    </li>
-                    <li>
-                        <strong>Email</strong>
-                        info@waystem.com
-                    </li>
-                </ul>
-            </section>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <div class="contact-text">
+                        waystem@protonmail.com
+                    </div>
+                </li>
+            </ul>
+
+            <div class="social-section">
+                <div class="social-icons">
+                    <a href="https://facebook.com/Waystem" target="_blank" class="facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com/waystem" target="_blank" class="instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://x.com/waystem" target="_blank" class="twitter">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="https://youtube.com/Waystem" target="_blank" class="youtube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/waystem" target="_blank" class="linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </main>
 
