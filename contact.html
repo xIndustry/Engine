@@ -102,66 +102,205 @@
             flex: 1;
             padding: 30px 8%;
             width: 100%;
-        }
-
-        .card {
-            margin-top: 32px;
-        }
-
-        h1 {
-            font-size: clamp(22px, 6vw, 36px);
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            font-size: clamp(18px, 5vw, 28px);
-            margin-bottom: 12px;
-        }
-
-        p.lead {
-            font-size: clamp(14px, 3.6vw, 18px);
-            margin: 8px 0 22px;
-            line-height: 1.5;
-        }
-
-        p.lead a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        p.lead a:hover {
-            color: var(--accent);
-        }
-
-        /* Values & Team Sections */
-        .values {
             display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: calc(100vh - 130px);
         }
 
-        .value {
+        .wrap .content-container {
+            display: flex;
+            justify-content: space-between;
             width: 100%;
-            padding: 9px;
-            border-radius: 9px;
-            background: #1b1a1a;
-            border: 16px solid rgba(0, 0, 0, 0.05);
-            backdrop-filter: blur(8px);
+            max-width: 1400px;
+            gap: 60px;
         }
 
-        .value strong {
-            font-size: clamp(14px, 3.6vw, 18px);
+        .wrap .left-section {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .wrap .right-section {
+            flex-basis: 35%;
+            min-width: 320px;
+            max-width: 450px;
+        }
+
+        .wrap h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .wrap h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .wrap .right-section h2 {
+            font-size: 20px;
+            margin-top: 45px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .wrap .right-section h2::before {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 1px;
+            background-color: #8f8a8a;
+            top: 120%;
+            left: 0;
+        }
+
+        .wrap .right-section h2::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #a6522a;
+            top: calc(120% - 1px);
+            left: 0;
+        }
+
+        .wrap .right-section p {
+            font-size: 17px;
+            color: #ffffff;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .wrap .contact-info {
+            list-style: none;
+            padding: 0;
+        }
+
+        .wrap .contact-info li {
+            position: relative;
+            padding: 0 0 20px 0;
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .wrap .contact-info li strong {
+            display: block;
+            color: #fbfbfb;
+            font-size: 16px;
+        }
+
+        /* Form Styling - ONLY INSIDE WRAP */
+        .wrap .messageForm {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-top: 30px;
+            gap: 0;
+        }
+
+        .wrap .inputGroup {
+            margin: 18px 0;
+            position: relative;
+        }
+
+        .wrap .messageForm .halfWidth {
+            flex-basis: 48%;
+        }
+
+        .wrap .messageForm .fullWidth {
+            flex-basis: 100%;
+        }
+
+        .wrap .messageForm input,
+        .wrap .messageForm textarea {
+            width: 100%;
+            font-size: 18px;
+            padding: 8px 0;
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            border-bottom: 2px solid #666;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .wrap .messageForm input:focus,
+        .wrap .messageForm textarea:focus {
+            border-bottom-color: #a6522a;
+        }
+
+        .wrap .messageForm textarea {
+            resize: none;
+            height: 120px;
             display: block;
         }
 
-        .value div {
-            color: var(--muted);
-            font-size: clamp(13px, 3.6vw, 16px);
-            margin-top: 6px;
+        .wrap textarea::-webkit-scrollbar {
+            width: 5px;
         }
 
+        .wrap textarea::-webkit-scrollbar-track {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+        }
 
+        .wrap textarea::-webkit-scrollbar-thumb {
+            background-color: #a6522a;
+            border-radius: 15px;
+        }
+
+        .wrap .inputGroup label {
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            color: #888;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .wrap .inputGroup input:focus ~ label,
+        .wrap .inputGroup textarea:focus ~ label,
+        .wrap .inputGroup input:valid ~ label,
+        .wrap .inputGroup textarea:valid ~ label {
+            transform: translateY(-30px);
+            font-size: 14px;
+            color: #a6522a;
+        }
+
+        .wrap .messageForm textarea:focus + label,
+        .wrap .messageForm textarea:valid + label {
+            transform: translateY(-130px);
+        }
+
+        .wrap .inputGroup button {
+            padding: 13px 20px;
+            width: 100%;
+            font-size: 18px;
+            background-color: #a6522a;
+            color: #fff;
+            border: 1px solid transparent;
+            border-radius: 25px;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.521);
+            transition: all 0.4s ease;
+            font-weight: 500;
+        }
+
+        .wrap .inputGroup button:hover {
+            background-color: #8b4123;
+            color: #ffffff;
+            box-shadow: 0px 0px 20px rgba(166, 82, 42, 0.5);
+            transform: translateY(-2px);
+        }
 
         /* Footer */
         footer {
@@ -193,29 +332,51 @@
         }
 
         /* Responsive Breakpoints */
-        @media (max-width: 900px) {
-            .team-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 1100px) {
+            .wrap .messageForm .halfWidth {
+                flex-basis: 100%;
             }
-
-            .sticky-bar .nav-links li {
-                margin-right: 10px;
+            
+            .wrap .content-container {
+                gap: 40px;
             }
         }
 
-        @media (min-width: 900px) {
-            .value {
-                width: calc(33.33% - 10px);
+        @media (max-width: 900px) {
+            .wrap .content-container {
+                flex-direction: column;
+            }
+
+            .wrap .left-section,
+            .wrap .right-section {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+
+            .wrap .right-section {
+                margin-top: 40px;
+            }
+
+            .sticky-bar .nav-links li {
+                margin: 0 8px;
             }
         }
 
         @media (max-width: 480px) {
             .company-name {
-                font-size: 58px;
+                font-size: 48px;
             }
 
             .nav-links li {
                 margin: 0 5px;
+            }
+
+            .wrap h1 {
+                font-size: 36px;
+            }
+
+            .wrap {
+                padding: 20px 5%;
             }
         }
     </style>
@@ -235,16 +396,54 @@
     </header>
 
     <main class="wrap">
-        <section id="about">
-            <h1>Get in touch</h1>
-            <p class="lead">
-                We’re here to help you design, build, and operate energy systems that deliver real value. Reach out to
-                our team for inquiries, project discussions, or technical questions.
-            </p>
+        <div class="content-container">
+            <section class="left-section">
+                <h1>Contact</h1>
+                <h2>Let's Get in Touch.</h2>
+                <form class='messageForm' method='post'>
+                    <input type='hidden' name='form-name' value='form 1' />
+                    <div class="inputGroup halfWidth">
+                        <input type="text" name="name" required="required">
+                        <label>Your Name</label>
+                    </div>
+                    <div class="inputGroup halfWidth">
+                        <input type="email" name="email" required="required">
+                        <label>Email</label>
+                    </div>
+                    <div class="inputGroup fullWidth">
+                        <input type="text" name="subject" required="required">
+                        <label>Subject</label>
+                    </div>
+                    <div class="inputGroup fullWidth">
+                        <textarea name="message" required="required"></textarea>
+                        <label>Your Message</label>
+                    </div>
+                    <div class="inputGroup fullWidth">
+                        <button type="submit">Send Message</button>
+                    </div>
+                </form>
+            </section>
 
-        </section>
-
-
+            <section class="right-section">
+                <h2>Contact Information</h2>
+                <p>We're open for any suggestion or just to have a chat</p>
+                <ul class="contact-info">
+                    <li>
+                        <strong>Address</strong>
+                        Waystem HQ, Tiswadi Panaji - 403001<br>
+                        Goa, India
+                    </li>
+                    <li>
+                        <strong>Phone</strong>
+                        +91 xxxxxxxxxx
+                    </li>
+                    <li>
+                        <strong>Email</strong>
+                        info@waystem.com
+                    </li>
+                </ul>
+            </section>
+        </div>
     </main>
 
     <footer>
